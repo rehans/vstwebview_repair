@@ -11,9 +11,9 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 include(FetchContent)
 
 # We don't want VSTGUI to bloat the binary.
-set(SMTG_ADD_VSTGUI OFF)
-set(SMTG_ADD_VST3_PLUGINS_SAMPLES OFF)
-set(SMTG_ADD_VST3_HOSTING_SAMPLES OFF)
+option(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES "Enable VST 3 Plug-in Examples" Off)
+option(SMTG_ENABLE_VST3_HOSTING_EXAMPLES "Enable VST 3 Hosting Examples" OFF)
+option(SMTG_ENABLE_VSTGUI_SUPPORT "Enable VSTGUI Support" OFF)
 
 # VST3SDK
 FetchContent_Declare(
@@ -24,7 +24,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(vst3sdk)
 
 # json
-FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.10.5/json.tar.xz)
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
 FetchContent_MakeAvailable(json)
 
 smtg_enable_vst3_sdk()
@@ -99,7 +99,7 @@ elseif(UNIX)
     endif()
 endif ()
 
-option(BUILD_DEMO "Build demos" OFF)
+option(BUILD_DEMO "Build demos" ON)
 if(BUILD_DEMO)
     add_subdirectory(demo/panner)
 endif()
